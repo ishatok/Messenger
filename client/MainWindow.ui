@@ -1,0 +1,1184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Мессенджер</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Главное окно */
+                QMainWindow {
+                background-color: #1A202C;
+                color: #F7FAFC;
+                font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+                }
+
+                /* Stacked Widget */
+                QStackedWidget {
+                background: transparent;
+                border: none;
+                }
+
+                QStackedWidget::item {
+                background: transparent;
+                }
+
+                /* Кнопки */
+                QPushButton {
+                background-color: #805AD5;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 12px 24px;
+                font-size: 14px;
+                font-weight: bold;
+                min-height: 20px;
+                }
+
+                QPushButton:hover {
+                background-color: #6B46C1;
+                }
+
+                QPushButton:pressed {
+                background-color: #553C9A;
+                }
+
+                QPushButton:disabled {
+                background-color: #4A5568;
+                color: #A0AEC0;
+                }
+
+                /* Поля ввода */
+                QLineEdit {
+                background-color: #2D3748;
+                border: 2px solid #4A5568;
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 14px;
+                color: #F7FAFC;
+                }
+
+                QLineEdit:focus {
+                border-color: #805AD5;
+                }
+
+                QLineEdit[echoMode=&quot;2&quot;] {
+                font-family: &quot;Courier New&quot;, monospace;
+                letter-spacing: 1px;
+                }
+
+                /* Метки */
+                QLabel {
+                background: transparent;
+                color: #F7FAFC;
+                font-size: 14px;
+                border: none;
+                }
+
+                /* Списки */
+                QListWidget {
+                background-color: #2D3748;
+                border: 2px solid #4A5568;
+                border-radius: 8px;
+                padding: 4px;
+                font-size: 14px;
+                color: #F7FAFC;
+                outline: none;
+                }
+
+                QListWidget::item {
+                background-color: transparent;
+                border: none;
+                padding: 12px 16px;
+                margin: 2px;
+                border-radius: 6px;
+                }
+
+                QListWidget::item:selected {
+                background-color: #805AD5;
+                color: white;
+                }
+
+                QListWidget::item:hover {
+                background-color: #4A5568;
+                }
+
+                /* Текстовые области */
+                QTextEdit, QTextBrowser {
+                background-color: #2D3748;
+                border: 2px solid #4A5568;
+                border-radius: 8px;
+                padding: 12px;
+                font-size: 14px;
+                color: #F7FAFC;
+                }
+
+                /* Сплиттер */
+                QSplitter::handle {
+                background-color: #4A5568;
+                border: 1px solid #2D3748;
+                }
+
+                QSplitter::handle:horizontal {
+                width: 2px;
+                }
+
+                QSplitter::handle:vertical {
+                height: 2px;
+                }
+
+/* === СТИЛИ УВЕДОМЛЕНИЯ === */
+
+/* Базовый стиль уведомления */
+QFrame#login_notification {
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: #F56565;
+    border: 2px solid #E53E3E;
+}
+
+/* Стили для разных типов уведомлений */
+QFrame#login_notification[notificationType=&quot;success&quot;] {
+    background-color: #48BB78;
+    border: 2px solid #38A169;
+}
+
+QFrame#login_notification[notificationType=&quot;warning&quot;] {
+    background-color: #ED8936;
+    border: 2px solid #DD6B20;
+}
+
+QFrame#login_notification[notificationType=&quot;info&quot;] {
+    background-color: #4299E1;
+    border: 2px solid #3182CE;
+}
+
+QFrame#login_notification[notificationType=&quot;error&quot;] {
+    background-color: #F56565;
+    border: 2px solid #E53E3E;
+}
+
+/* Метка уведомления - КРИТИЧЕСКИ ВАЖНЫЕ СТИЛИ */
+QLabel#login_notify_label {
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Обязательно добавь эти свойства для метки в Qt Designer */
+QLabel#login_notify_label {
+    min-height: 20px;
+    qproperty-alignment: 'AlignVCenter | AlignLeft';
+}
+
+/* Кнопка закрытия */
+QPushButton#login_notify_close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 24px;
+    min-height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+}
+
+QPushButton#login_notify_close:hover {
+    background: rgba(255,255,255,0.3);
+    border-radius: 12px;
+}
+
+
+/* Глобальное уведомление */
+QFrame#global_notification {
+    background-color: #F56565;
+    border: 2px solid #E53E3E;
+    border-radius: 8px;
+}
+
+QFrame#global_notification[notificationType=&quot;success&quot;] {
+    background-color: #48BB78;
+    border: 2px solid #38A169;
+}
+
+QFrame#global_notification[notificationType=&quot;warning&quot;] {
+    background-color: #ED8936;
+    border: 2px solid #DD6B20;
+}
+
+QFrame#global_notification[notificationType=&quot;info&quot;] {
+    background-color: #4299E1;
+    border: 2px solid #3182CE;
+}
+
+QFrame#global_notification[notificationType=&quot;error&quot;] {
+    background-color: #F56565;
+    border: 2px solid #E53E3E;
+}
+
+/* Текст уведомления */
+QLabel#global_notify_label {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* Кнопка закрытия */
+QPushButton#global_notify_close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+QPushButton#global_notify_close:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+QTextBrowser {
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="login_page">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QWidget" name="login_container" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>350</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>400</width>
+            <height>350</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #2D3748;
+                                                border-radius: 12px;
+                                            </string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QLabel" name="login_title">
+             <property name="styleSheet">
+              <string notr="true">font-size: 20px;
+                                                            font-weight: bold;
+                                                            color: #F7FAFC;
+                                                            margin-bottom: 20px;
+                                                        </string>
+             </property>
+             <property name="text">
+              <string>Вход в мессенджер</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="username_label">
+             <property name="text">
+              <string>Логин:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="username_input">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="placeholderText">
+              <string>Введите логин</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="password_label">
+             <property name="text">
+              <string>Пароль:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="password_input">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Введите пароль</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="login_button">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton#login_button {
+                                                            background-color: #48BB78;
+                                                            font-size: 16px;
+                                                            padding: 14px;
+                                                            color: white;
+                                                            border: none;
+                                                            border-radius: 12px;
+                                                            font-weight: bold;
+                                                            min-height: 20px;
+                                                            transition: background-color 0.2s ease;
+                                                            }
+
+                                                            QPushButton#login_button:hover {
+                                                            background-color: #38A169;
+                                                            }
+
+                                                            QPushButton#login_button:pressed {
+                                                            background-color: #2F855A;
+                                                            }
+
+                                                            QPushButton#login_button:disabled {
+                                                            background-color: #4A5568;
+                                                            color: #A0AEC0;
+                                                            }
+                                                        </string>
+             </property>
+             <property name="text">
+              <string>Войти</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="register_button">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton#register_button {
+                                                            background-color: #4299E1;
+                                                            font-size: 16px;
+                                                            padding: 14px;
+                                                            color: white;
+                                                            border: none;
+                                                            border-radius: 12px;
+                                                            font-weight: bold;
+                                                            min-height: 20px;
+                                                            transition: background-color 0.2s ease;
+                                                            }
+
+                                                            QPushButton#register_button:hover {
+                                                            background-color: #3182CE;
+                                                            }
+
+                                                            QPushButton#register_button:pressed {
+                                                            background-color: #2B6CB0;
+                                                            }
+
+                                                            QPushButton#register_button:disabled {
+                                                            background-color: #4A5568;
+                                                            color: #A0AEC0;
+                                                            }
+                                                        </string>
+             </property>
+             <property name="text">
+              <string>Зарегистрироваться</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+       <widget class="QFrame" name="login_notification">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>20</y>
+          <width>300</width>
+          <height>60</height>
+         </rect>
+        </property>
+        <property name="visible">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #F56565;
+                                        border: 2px solid #E53E3E;
+                                        border-radius: 8px;
+                                        padding: 10px;
+                                    </string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_login_notify">
+         <item>
+          <widget class="QLabel" name="login_notify_label">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>44</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: white;
+                                                    font-size: 14px;
+                                                    font-weight: bold;
+                                                </string>
+           </property>
+           <property name="text">
+            <string>Ошибка входа!</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="login_notify_close">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+                                                    background: transparent;
+                                                    border: none;
+                                                    color: white;
+                                                    font-size: 18px;
+                                                    font-weight: bold;
+                                                    min-width: 25px;
+                                                    min-height: 25px;
+                                                    }
+                                                    QPushButton:hover {
+                                                    background: rgba(255,255,255,0.3);
+                                                    border-radius: 12px;
+                                                    }
+                                                </string>
+           </property>
+           <property name="text">
+            <string>×</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="register_page">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QWidget" name="register_container" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>450</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>400</width>
+            <height>450</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #2D3748;
+                                                border-radius: 12px;
+                                            </string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="register_title">
+             <property name="styleSheet">
+              <string notr="true">font-size: 20px;
+                                                            font-weight: bold;
+                                                            color: #F7FAFC;
+                                                            margin-bottom: 20px;
+                                                        </string>
+             </property>
+             <property name="text">
+              <string>Регистрация</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="reg_username_label">
+             <property name="text">
+              <string>Логин:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="reg_username_input">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="placeholderText">
+              <string>Придумайте логин</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="username_status">
+             <property name="styleSheet">
+              <string notr="true">font-size: 12px;
+                                                            color: #A0AEC0;
+                                                        </string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="reg_password_label">
+             <property name="text">
+              <string>Пароль:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="reg_password_input">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Придумайте пароль</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="reg_confirm_label">
+             <property name="text">
+              <string>Подтвердите пароль:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="reg_confirm_input">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Повторите пароль</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="password_match_status">
+             <property name="styleSheet">
+              <string notr="true">font-size: 12px;
+                                                            color: #A0AEC0;
+                                                        </string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="register_confirm_button">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton#register_confirm_button {
+                                                            background-color: #ED8936;
+                                                            font-size: 16px;
+                                                            padding: 14px;
+                                                            color: white;
+                                                            border: none;
+                                                            border-radius: 12px;
+                                                            font-weight: bold;
+                                                            min-height: 20px;
+                                                            transition: background-color 0.2s ease;
+                                                            }
+
+                                                            QPushButton#register_confirm_button:hover {
+                                                            background-color: #DD6B20;
+                                                            }
+
+                                                            QPushButton#register_confirm_button:pressed {
+                                                            background-color: #C05621;
+                                                            }
+
+                                                            QPushButton#register_confirm_button:disabled {
+                                                            background-color: #4A5568;
+                                                            color: #A0AEC0;
+                                                            }
+                                                        </string>
+             </property>
+             <property name="text">
+              <string>Зарегистрироваться</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="register_back_button">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton#register_back_button {
+                                                            background-color: #F56565;
+                                                            font-size: 16px;
+                                                            padding: 14px;
+                                                            color: white;
+                                                            border: none;
+                                                            border-radius: 12px;
+                                                            font-weight: bold;
+                                                            min-height: 20px;
+                                                            transition: background-color 0.2s ease;
+                                                            }
+
+                                                            QPushButton#register_back_button:hover {
+                                                            background-color: #E53E3E;
+                                                            }
+
+                                                            QPushButton#register_back_button:pressed {
+                                                            background-color: #C53030;
+                                                            }
+                                                        </string>
+             </property>
+             <property name="text">
+              <string>Назад</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+       <widget class="QFrame" name="register_notification">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>20</y>
+          <width>300</width>
+          <height>60</height>
+         </rect>
+        </property>
+        <property name="visible">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #F56565;
+                                        border: 2px solid #E53E3E;
+                                        border-radius: 8px;
+                                        padding: 10px;
+                                    </string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_register_notify">
+         <item>
+          <widget class="QLabel" name="register_notify_label">
+           <property name="styleSheet">
+            <string notr="true">color: white;
+font-size: 14px;
+font-weight: bold;
+                                                </string>
+           </property>
+           <property name="text">
+            <string>Логин занят!</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_notify">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="register_notify_close">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+                                                    background: transparent;
+                                                    border: none;
+                                                    color: white;
+                                                    font-size: 18px;
+                                                    font-weight: bold;
+                                                    min-width: 25px;
+                                                    min-height: 25px;
+                                                    }
+                                                    QPushButton:hover {
+                                                    background: rgba(255,255,255,0.3);
+                                                    border-radius: 12px;
+                                                    }
+                                                </string>
+           </property>
+           <property name="text">
+            <string>×</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="chat_page">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="contacts_panel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>250</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #2D3748;
+                                                    border-radius: 8px;
+                                                    padding: 10px;
+                                                </string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="contacts_title">
+              <property name="styleSheet">
+               <string notr="true">font-size: 16px;
+                                                                font-weight: bold;
+                                                                color: #F7FAFC;
+                                                                margin-bottom: 10px;
+                                                            </string>
+              </property>
+              <property name="text">
+               <string>Контакты</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="contacts_list">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="chat_panel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLabel" name="chat_title">
+              <property name="styleSheet">
+               <string notr="true">font-size: 16px;
+                                                                font-weight: bold;
+                                                                color: #F7FAFC;
+                                                                background-color: #805AD5;
+                                                                padding: 10px;
+                                                                border-radius: 8px;
+                                                                text-align: center;
+                                                            </string>
+              </property>
+              <property name="text">
+               <string>Выберите собеседника</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="chat_display">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">/* Основной стиль чата */
+QTextBrowser {
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: white;
+}
+
+/* Свои сообщения (справа) */
+.message-own {
+    margin: 10px 0px;
+    text-align: right;
+}
+
+.message-content-own {
+    display: inline-block;
+    max-width: 70%;
+    background-color: #805AD5;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 18px;
+    border-bottom-right-radius: 4px;
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.message-text-own {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.message-time-own {
+    font-size: 11px;
+    opacity: 0.8;
+    text-align: right;
+}
+
+/* Чужие сообщения (слева) */
+.message-other {
+    margin: 10px 0px;
+    text-align: left;
+}
+
+.message-sender-other {
+    font-size: 12px;
+    color: #A0AEC0;
+    margin-bottom: 4px;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+.message-content-other {
+    display: inline-block;
+    max-width: 70%;
+    background-color: #2D3748;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.message-text-other {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.message-time-other {
+    font-size: 11px;
+    opacity: 0.7;
+    text-align: right;
+}</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLineEdit" name="message_input">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-radius: 20px;
+                                                                        padding: 12px 16px;
+                                                                        font-size: 14px;
+                                                                    </string>
+                </property>
+                <property name="placeholderText">
+                 <string>Введите сообщение...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="send_button">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton#send_button {
+                                                                        background-color: #48BB78;
+                                                                        font-size: 16px;
+                                                                        padding: 14px;
+                                                                        color: white;
+                                                                        border: none;
+                                                                        border-radius: 22px;
+                                                                        font-weight: bold;
+                                                                        min-height: 20px;
+                                                                        transition: background-color 0.2s ease;
+                                                                        }
+
+                                                                        QPushButton#send_button:hover {
+                                                                        background-color: #38A169;
+                                                                        }
+
+                                                                        QPushButton#send_button:pressed {
+                                                                        background-color: #2F855A;
+                                                                        }
+
+                                                                        QPushButton#send_button:disabled {
+                                                                        background-color: #4A5568;
+                                                                        color: #A0AEC0;
+                                                                        }
+                                                                    </string>
+                </property>
+                <property name="text">
+                 <string>Отправить</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+   <widget class="QFrame" name="global_notification">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>300</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="visible">
+     <bool>false</bool>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_global_notify">
+     <item>
+      <widget class="QLabel" name="global_notify_label">
+       <property name="text">
+        <string>Уведомление!</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="global_notify_close">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>×</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
