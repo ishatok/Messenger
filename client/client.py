@@ -319,7 +319,7 @@ class MessengerClient(MyWidget):
                 self.message_poller.stop_polling()
 
             self.load_chat_history(user_id)
-            self.start_message_polling(user_id)
+            # self.start_message_polling(user_id)
 
         except Exception:
             self.show_error("Ошибка выбора контакта")
